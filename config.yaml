@@ -85,12 +85,8 @@ menu:
       title: Penny for your thoughts
       url: /post/
       weight: 2    
-    - name: Get started
-      title: Get started using the Hugo Apéro theme
-      url: /get-started/
-      weight: 3
-    - name: Learn
-      title: learn more about using the Hugo Apéro theme
+    - name: Learning
+      title: learn more
       url: /learn/
       weight: 4
     - name: Contact

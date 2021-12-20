@@ -1,4 +1,4 @@
-baseURL: "www.nchristie.com"
+baseURL: "/"
 languageCode: en
 theme: hugo-apero
 title: Nick

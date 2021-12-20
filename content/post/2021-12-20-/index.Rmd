@@ -1,0 +1,19 @@
+---
+title: 'First blog post'
+author: Nick Christie
+date: '2021-12-20'
+slug: []
+categories: []
+tags: []
+---
+
+This is a blog post example.
+
+```{r}
+
+summary(cars)
+
+```
+
+
+can you see this?

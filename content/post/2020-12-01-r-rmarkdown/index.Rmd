@@ -35,10 +35,3 @@ pie(
   init.angle = -50, border = NA
 )
 ```
-
-
-```{r}
-
-summary(Orange)
-```
-

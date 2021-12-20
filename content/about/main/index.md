@@ -1,18 +1,21 @@
 ---
 ## Configure page content in wide column
-title: "Why apéro?" # leave blank to exclude
+title: "Nick Christie" # leave blank to exclude
 number_featured: 1 # pulling from mainSections in config.toml
-number_categories: 3 # set to zero to exclude
+number_categories: 0 # set to zero to exclude
 use_featured: false
 show_intro: true
 intro: |
-  Apéro is a unique kind of casual get-together in French culture, when you gather with friends and get to know each other better over some apéritifs, snacks, and anything in between. A good apéro is one where you'd happily spend a few hours just hanging out.
+  Hello, and welcome to my site!
   
-  I hope this theme helps you create your own virtual apéro. A place where you and your site's visitors enjoy spending time, and one that helps folks get to know you better. 
-show_outro: true
+  I am a PhD Canidate at Lund University located in the charming city of Lund, Sweden. My research interests include financing frictions, firm investment decisions, econometrics, and data science.  I am an avid R user and love finding new solutions to old problems.
+  
+   Outside of corportate finance, my personal interests include cycling, hiking, good coffee, and early jazz recordings.
+show_outro: false
 outro: |
   <i class="fas fa-glass-cheers pr2"></i>Sincere thanks to [Maëlle Salmon](https://masalmon.eu/) for her help naming this Hugo theme!
 ---
 
 ** index doesn't contain a body, just front matter above.
 See about/list.html in the layouts folder **
+

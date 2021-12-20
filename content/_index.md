@@ -1,19 +1,16 @@
 ---
-action_label: Read More &rarr;
+action_label: More about me &rarr;
 action_link: /about
 action_type: text
-description: Welcome to the documentation site for the Hugo Apéro (*a-pay-ROH*) theme!
-  Inside, you'll find how to get started building a new site with this theme. You'll
-  learn a bit about Hugo, and a lot about what makes this theme unique and, we hope,
-  fun to get to know. Bon apéro!
-image_left: false
+description: Welcome to my site! Here you will find information on my reserach along with my thoughts on Corporate Finance topics and we can take advantage of what R has to offer.  Have a look around!
+image_left: true
 images:
-- img/voir.jpg
+- img/ales.jpg
 show_action_link: true
-show_social_links: true
-subtitle: A Hugo theme you'll want to hang out with
+show_social_links: false
+subtitle: PhD Candidate - Lund University
 text_align_left: true
-title: Hugo Apéro
+title: Nick Christie
 ---
 
 ** index doesn't contain a body, just front matter above.

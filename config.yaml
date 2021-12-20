@@ -1,8 +1,8 @@
-baseURL: https://hugo-apero-docs.netlify.app/
+baseURL: "/"
 languageCode: en
 theme: hugo-apero
-title: Hugo Apéro
-author: Alison Hill
+title: Nick
+author: Nick Christie
 copyright: ''
 googleAnalytics: ''
 disqusShortname: ''
@@ -36,36 +36,30 @@ params:
   description: A modern, beautiful, and easily configurable blog theme for Hugo.
   favicon: /img/favicon.ico
   headingFontFamily: sans-serif
-  logo: /img/lemon.png
+  logo: /img/sum.png
   mainSections:
     - blog
     - project
     - talk
   navallcaps: yes
-  orgLocal: Anywhere
-  orgName: RStudio
+  orgLocal: 
+  orgName: 
   sharing_image: /img/papillons.jpg
   social:
     - icon: github
       icon_pack: fab
-      url: https://github.com/hugo-apero/
-    - icon: twitter
-      icon_pack: fab
-      url: https://twitter.com/apreshill
-    - icon: discord
-      icon_pack: fab
-      url: https://discord.gg/QbGXCFTMNb
+      url: https://github.com/n-christie
     - icon: youtube
       icon_pack: fab
-      url: https://youtube.com/playlist?list=PLzxicn7kBeay3kTPuTQ9lSi7I5jfWmEwc
-    - icon: lemon
-      icon_pack: far
-      url: https://hugo-apero.netlify.app/
+      url: https://www.youtube.com/channel/UCeA88yJZR1RLAs_Ybm9uNtg
+    - icon: linkedin
+      icon_pack: fab
+      url: https://www.linkedin.com/in/christienick/
   socialInFooter: yes
   socialInHeader: no
   textFontFamily: sans-serif
-  theme: peach
-  twitter: apreshill
+  theme: sky
+  twitter: 
   utterances:
     issue_term: pathname
     label: 'comments :crystal_ball:'
@@ -78,43 +72,31 @@ taxonomies:
   tag: tags
 menu:
   footer:
-    - name: License
-      title: License
-      url: /license/
-      weight: 1
     - name: Contact
       title: Contact form
       url: /contact/
       weight: 2
-    - name: Contributors
-      title: Contributors
-      url: /contributors/
-      weight: 3
   header:
     - name: About
-      title: About Apéro
+      title: About Nick
       url: /about/
       weight: 1
+    - name: Blog
+      title: Penny for your thoughts
+      url: /post/
+      weight: 2    
     - name: Get started
       title: Get started using the Hugo Apéro theme
       url: /get-started/
-      weight: 2
+      weight: 3
     - name: Learn
       title: learn more about using the Hugo Apéro theme
       url: /learn/
-      weight: 3
-    - name: Projects
-      title: Project Portfolio
-      url: /project/
       weight: 4
-    - name: Talks
-      title: Talks
-      url: /talk/
+    - name: Contact
+      title: Contact
+      url: /contact/
       weight: 5
-    - name: Elements
-      title: Element Page
-      url: /elements/
-      weight: 6
 privacy:
   disqus:
     disable: no

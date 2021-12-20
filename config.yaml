@@ -75,7 +75,7 @@ menu:
     - name: Contact
       title: Contact form
       url: /contact/
-      weight: 2
+      weight: 1
   header:
     - name: About
       title: About Nick

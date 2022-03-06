@@ -1,0 +1,99 @@
+---
+title: Quick Introduction to R
+author: ''
+date: ''
+slug: []
+categories: []
+tags: []
+Weight: [1]
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>There are many R tutorials out there. This one aims to be a jump start to get you to know exactly what you need to start using R while ignoring all the stuff that you can quickly search for.</p>
+<p>As for many topics, tools, and trades, getting the feel of things and figuring out the way they work is the first step. Everything else is the details, so to speak. Here’s the idea: Working through this guide will give you the tools to start digging into a project and have an idea of what you are doing. More importantly, you’ll know in a general way how things function in an R way, so when you have questions (no one has all the answers, no one) you’ll be able to quickly find solutions and be on your way to R greatness.</p>
+<p>This guide is broken up into 10 bite-sized parts. Each one of these parts could probably have a book written about them. Some of these parts <em>have</em> had books written about them. Don’t let that be overwhelming. Think of it this way: there have been many, many, many books written about very specific Excel things and unless you really need to become an expert in those very specific Excel things, you, like the rest of the world, will simply look up what you need to know when you need to know it. What you do need to know is how things work in general and what to search for when you need answers. That’s the aim here, quick and dirty.</p>
+<ul>
+<li>Introduction</li>
+<li>An example</li>
+<li>Basic functions and the R Studio environment - some tips</li>
+<li>Getting data in</li>
+<li>Working with data - oh, boy</li>
+<li>Doing stuff with data</li>
+<li>Coffee break</li>
+<li>Presenting your results - tables</li>
+<li>Presenting your results - graphs and figures</li>
+<li>Github - yeah, you probably want to get on this boat.</li>
+</ul>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>So why R?</p>
+<p>This is usually where we start, and for a good reason. Why spend time learning something new, ehh?</p>
+<p>Here’s the low-down: R is a tool. Powerpoint is a tool. While Powerpoint is a one-trick-pony, R can do tons of things, and for many of those things, it does them very well while being fast and efficient in the process.</p>
+<p><img src="images/International-Companies-Using-R.jpg" /></p>
+<p>(image from <a href="https://techvidvan.com" class="uri">https://techvidvan.com</a>)</p>
+</div>
+<div id="an-example" class="section level2">
+<h2>An example</h2>
+<p>Get data, do stuff with the data, communicate the results.</p>
+<div id="get-some-data" class="section level3">
+<h3>Get some data</h3>
+<pre class="r"><code>library(tidyverse)
+
+us_crime &lt;- USArrests %&gt;%
+  rownames_to_column( var = &quot;State&quot;) 
+
+str(us_crime)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  5 variables:
+##  $ State   : chr  &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
+##  $ Murder  : num  13.2 10 8.1 8.8 9 7.9 3.3 5.9 15.4 17.4 ...
+##  $ Assault : int  236 263 294 190 276 204 110 238 335 211 ...
+##  $ UrbanPop: int  58 48 80 50 91 78 77 72 80 60 ...
+##  $ Rape    : num  21.2 44.5 31 19.5 40.6 38.7 11.1 15.8 31.9 25.8 ...</code></pre>
+<pre class="r"><code>summary(us_crime)</code></pre>
+<pre><code>##     State               Murder          Assault         UrbanPop    
+##  Length:50          Min.   : 0.800   Min.   : 45.0   Min.   :32.00  
+##  Class :character   1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50  
+##  Mode  :character   Median : 7.250   Median :159.0   Median :66.00  
+##                     Mean   : 7.788   Mean   :170.8   Mean   :65.54  
+##                     3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75  
+##                     Max.   :17.400   Max.   :337.0   Max.   :91.00  
+##       Rape      
+##  Min.   : 7.30  
+##  1st Qu.:15.07  
+##  Median :20.10  
+##  Mean   :21.23  
+##  3rd Qu.:26.18  
+##  Max.   :46.00</code></pre>
+<pre class="r"><code>head(us_crime)</code></pre>
+<pre><code>##        State Murder Assault UrbanPop Rape
+## 1    Alabama   13.2     236       58 21.2
+## 2     Alaska   10.0     263       48 44.5
+## 3    Arizona    8.1     294       80 31.0
+## 4   Arkansas    8.8     190       50 19.5
+## 5 California    9.0     276       91 40.6
+## 6   Colorado    7.9     204       78 38.7</code></pre>
+</div>
+<div id="do-stuff-with-the-data" class="section level3">
+<h3>Do stuff with the data</h3>
+<pre class="r"><code>us_crime %&gt;%
+  ggplot(aes(x = State, y = Assault)) +
+  geom_col() +
+  coord_flip()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="communicate-the-results" class="section level3">
+<h3>Communicate the results</h3>
+</div>
+</div>
+<div id="the-basics" class="section level2">
+<h2>The basics</h2>
+<p>Installation of R and R studio:</p>
+<p>Here in 2021, there are a few things that are so integrated in R that we should skip the small talk and just have you start off what you will be using:</p>
+<ul>
+<li>You want to use Rstudio</li>
+<li>You want to use Tidyverse</li>
+</ul>
+<p>What’s that? Rstudio is an IDE - it makes using R and everything R related easy. Tidyverse is a way of doing things that makes things easy. That’s all the information you need.</p>
+</div>

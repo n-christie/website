@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Nick</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on Nick</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 20 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to R</title>
+      <link>/learn/2021-12-20-introduction-to-r/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/learn/2021-12-20-introduction-to-r/</guid>
+      <description>Why R?
+It&amp;rsquo;s a common question. Why would you invest in a new thing when you already have your own thing going?
+ It&amp;rsquo;s free It&amp;rsquo;s free You can automate things You can have your entire workflow in one program  </description>
+    </item>
+    
+  </channel>
+</rss>

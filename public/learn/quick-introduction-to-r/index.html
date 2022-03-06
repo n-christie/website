@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.91.0" />
+<title>Quick Introduction to R | Nick</title>
+
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="A modern, beautiful, and easily configurable blog theme for Hugo.">
+
+
+<meta property="og:site_name" content="Nick">
+<meta property="og:title" content="Quick Introduction to R | Nick">
+<meta property="og:description" content="A modern, beautiful, and easily configurable blog theme for Hugo." />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="/learn/quick-introduction-to-r/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="/learn/sidebar-listng.jpg" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="/learn/sidebar-listng.jpg" >
+    
+    
+  <meta itemprop="name" content="Quick Introduction to R">
+<meta itemprop="description" content="There are many R tutorials out there. This one aims to be a jump start to get you to know exactly what you need to start using R while ignoring all the stuff that you can quickly search for.
+As for many topics, tools, and trades, getting the feel of things and figuring out the way they work is the first step. Everything else is the details, so to speak.">
+
+<meta itemprop="wordCount" content="713">
+<meta itemprop="keywords" content="" />
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.5477c20f89738a32763391bbc2f43dbdfc2db0e7faba550c86cac92c99efa6b6.css" integrity="sha256-VHfCD4lzijJ2M5G7wvQ9vfwtsOf6ulUMhsrJLJnvprY=" media="screen">
+  
+  
+  <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.0afbfb447313a0b31b809bec11be75e70b0da4c0dc82fd8a6f13e5a2ccf21e4a.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="/" title="Home">
+      <img src="/img/sum.png" class="dib db-l h2 w-auto" alt="Nick">
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/about/" title="About Nick">About</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/post/" title="Penny for your thoughts">Blog</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/learn/" title="learn more">Learning</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Quick Introduction to R</h1>
+        
+        <p class="f6 measure lh-copy mv1"></p>
+        <p class="f7 db mv0 ttu">January 1, 0001</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        
+<script src="/learn/quick-introduction-to-r/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>There are many R tutorials out there. This one aims to be a jump start to get you to know exactly what you need to start using R while ignoring all the stuff that you can quickly search for.</p>
+<p>As for many topics, tools, and trades, getting the feel of things and figuring out the way they work is the first step. Everything else is the details, so to speak. Here’s the idea: Working through this guide will give you the tools to start digging into a project and have an idea of what you are doing. More importantly, you’ll know in a general way how things function in an R way, so when you have questions (no one has all the answers, no one) you’ll be able to quickly find solutions and be on your way to R greatness.</p>
+<p>This guide is broken up into 10 bite-sized parts. Each one of these parts could probably have a book written about them. Some of these parts <em>have</em> had books written about them. Don’t let that be overwhelming. Think of it this way: there have been many, many, many books written about very specific Excel things and unless you really need to become an expert in those very specific Excel things, you, like the rest of the world, will simply look up what you need to know when you need to know it. What you do need to know is how things work in general and what to search for when you need answers. That’s the aim here, quick and dirty.</p>
+<ul>
+<li>Introduction</li>
+<li>An example</li>
+<li>Basic functions and the R Studio environment - some tips</li>
+<li>Getting data in</li>
+<li>Working with data - oh, boy</li>
+<li>Doing stuff with data</li>
+<li>Coffee break</li>
+<li>Presenting your results - tables</li>
+<li>Presenting your results - graphs and figures</li>
+<li>Github - yeah, you probably want to get on this boat.</li>
+</ul>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>So why R?</p>
+<p>This is usually where we start, and for a good reason. Why spend time learning something new, ehh?</p>
+<p>Here’s the low-down: R is a tool. Powerpoint is a tool. While Powerpoint is a one-trick-pony, R can do tons of things, and for many of those things, it does them very well while being fast and efficient in the process.</p>
+<p><img src="images/International-Companies-Using-R.jpg" /></p>
+<p>(image from <a href="https://techvidvan.com" class="uri">https://techvidvan.com</a>)</p>
+</div>
+<div id="an-example" class="section level2">
+<h2>An example</h2>
+<p>Get data, do stuff with the data, communicate the results.</p>
+<div id="get-some-data" class="section level3">
+<h3>Get some data</h3>
+<pre class="r"><code>library(tidyverse)
+
+us_crime &lt;- USArrests %&gt;%
+  rownames_to_column( var = &quot;State&quot;) 
+
+str(us_crime)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  5 variables:
+##  $ State   : chr  &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
+##  $ Murder  : num  13.2 10 8.1 8.8 9 7.9 3.3 5.9 15.4 17.4 ...
+##  $ Assault : int  236 263 294 190 276 204 110 238 335 211 ...
+##  $ UrbanPop: int  58 48 80 50 91 78 77 72 80 60 ...
+##  $ Rape    : num  21.2 44.5 31 19.5 40.6 38.7 11.1 15.8 31.9 25.8 ...</code></pre>
+<pre class="r"><code>summary(us_crime)</code></pre>
+<pre><code>##     State               Murder          Assault         UrbanPop    
+##  Length:50          Min.   : 0.800   Min.   : 45.0   Min.   :32.00  
+##  Class :character   1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50  
+##  Mode  :character   Median : 7.250   Median :159.0   Median :66.00  
+##                     Mean   : 7.788   Mean   :170.8   Mean   :65.54  
+##                     3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75  
+##                     Max.   :17.400   Max.   :337.0   Max.   :91.00  
+##       Rape      
+##  Min.   : 7.30  
+##  1st Qu.:15.07  
+##  Median :20.10  
+##  Mean   :21.23  
+##  3rd Qu.:26.18  
+##  Max.   :46.00</code></pre>
+<pre class="r"><code>head(us_crime)</code></pre>
+<pre><code>##        State Murder Assault UrbanPop Rape
+## 1    Alabama   13.2     236       58 21.2
+## 2     Alaska   10.0     263       48 44.5
+## 3    Arizona    8.1     294       80 31.0
+## 4   Arkansas    8.8     190       50 19.5
+## 5 California    9.0     276       91 40.6
+## 6   Colorado    7.9     204       78 38.7</code></pre>
+</div>
+<div id="do-stuff-with-the-data" class="section level3">
+<h3>Do stuff with the data</h3>
+<pre class="r"><code>us_crime %&gt;%
+  ggplot(aes(x = State, y = Assault)) +
+  geom_col() +
+  coord_flip()</code></pre>
+<p><img src="/learn/quick-introduction-to-r/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="communicate-the-results" class="section level3">
+<h3>Communicate the results</h3>
+</div>
+</div>
+<div id="the-basics" class="section level2">
+<h2>The basics</h2>
+<p>Installation of R and R studio:</p>
+<p>Here in 2021, there are a few things that are so integrated in R that we should skip the small talk and just have you start off what you will be using:</p>
+<ul>
+<li>You want to use Rstudio</li>
+<li>You want to use Tidyverse</li>
+</ul>
+<p>What’s that? Rstudio is an IDE - it makes using R and everything R related easy. Tidyverse is a way of doing things that makes things easy. That’s all the information you need.</p>
+</div>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">January 1, 0001</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">4 minute read, 713 words</dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="/learn/2021-12-20-introduction-to-r/">&larr; Introduction to R</a>
+  
+  
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+  
+  <script src="https://utteranc.es/client.js"
+          repo="hugo-apero/apero"
+          issue-term="pathname"
+          theme="boxy-light"
+          label="comments :crystal_ball:"
+          crossorigin="anonymous"
+          async
+          type="text/javascript">
+  </script>
+  
+</div>
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/n-christie" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.youtube.com/channel/UCeA88yJZR1RLAs_Ybm9uNtg" title="youtube" target="_blank" rel="noopener">
+      <i class="fab fa-youtube fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/christienick/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+</footer>
+
+      </div>
+    </body>
+</html>

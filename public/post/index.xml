@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Nick</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Nick</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Swedish statistical data with R - Fun with Statistikmyndigheten</title>
+      <link>/post/2022-03-06-using-r-with-statistikmyndigheten-swedish-statistical-data/</link>
+      <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022-03-06-using-r-with-statistikmyndigheten-swedish-statistical-data/</guid>
+      <description>I recently discovered the R package pxweb which facilitates access to public statistical data in Sweden.As with many officially-run sites providing public data,navigating menus and manually downloading files can be cumbersome,much better to gain access with an API where you can download data directly and start using it.However,just mentioning the word “API” may scare away a few folks,so coming across packages like pxweb is always a refreshing discovery.</description>
+    </item>
+    
+  </channel>
+</rss>

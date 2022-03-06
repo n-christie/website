@@ -1,7 +1,7 @@
 baseURL: "/"
 languageCode: en
 theme: hugo-apero
-title: Nick
+title: Nick Christie
 author: Nick Christie
 copyright: ''
 googleAnalytics: ''
@@ -61,11 +61,6 @@ params:
   theme: sky
   twitter: 
   utterances:
-    issue_term: pathname
-    label: 'comments :crystal_ball:'
-    repo_name: hugo-apero/apero
-    theme: boxy-light
-    use_utterances: yes
 taxonomies:
   category: categories
   series: series

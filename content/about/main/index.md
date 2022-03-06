@@ -10,7 +10,7 @@ intro: |
   
   I am a PhD Canidate at Lund University located in the charming city of Lund, Sweden. My research interests include financing frictions, firm investment decisions, econometrics, and data science.  I am an avid R user and love finding new solutions to old problems.
   
-   Outside of corportate finance, my personal interests include cycling, hiking, good coffee, and early jazz recordings.
+   My personal interests include cycling, hiking, good coffee, and early jazz recordings.
 show_outro: false
 outro: |
   <i class="fas fa-glass-cheers pr2"></i>Sincere thanks to [Maëlle Salmon](https://masalmon.eu/) for her help naming this Hugo theme!

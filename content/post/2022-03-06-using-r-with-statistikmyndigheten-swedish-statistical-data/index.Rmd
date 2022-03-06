@@ -1,5 +1,5 @@
 ---
-title: Swedish statistical data with R - Fun with Statistikmyndigheten 
+title: Statistics Sweden with R - Fun with Statistikmyndigheten 
 author: ''
 date: '2022-03-06'
 slug: []
@@ -7,13 +7,13 @@ categories: []
 tags: []
 ---
 
-I recently discovered the R package _pxweb_ which facilitates access to public statistical data in Sweden.
+I recently discovered the R package __pxweb__ which facilitates access to public statistical data in Sweden.
 As with many officially-run sites providing public data,
 navigating menus and manually downloading files can be cumbersome,
 much better to gain access with an API where you can download data directly and start using it.
 However,
 just mentioning the word "API" may scare away a few folks,
-so coming across packages like _pxweb_ is always a refreshing discovery.
+so coming across packages like __pxweb__ is always a refreshing discovery.
 Let's take a quick look and see how is works!
 
 First,
@@ -40,19 +40,19 @@ Sys.setlocale(locale="UTF-8") # recommended to deal with åäö vowels
 
 Unless we're talking enormous data sets that make no sense storing on your personal computer,
 I am a proponent of getting all the data once and using R to do any filtering or subsetting.
-The _pxweb_ package makes this a breeze with built-in time outs for requests and a nice little interface to quickly find the data you need.
+The __pxweb__ package makes this a breeze with built-in time outs for requests and a nice little interface to quickly find the data you need.
 
 
 We'll take a look at the interface first,
-we can do that by calling the interactive function _pcweb_ which starts the interactive session and will guide you to the data you like:
+we can do that by calling the interactive function __pxweb__ which starts the interactive session and will guide you to the data you like:
 
 ```{r, eval=FALSE, results='hide', error=FALSE, warning=FALSE, message=FALSE}
 d <- pxweb_interactive("api.scb.se")
 
 ```
 
-This initiates the interactive session.  You enter your choice at the prompt and hit enter.  I won't walk through all the options here as they are pretty self-explanatory.
-Here's what the menu looks like after choosing English as a language and getting past the first few formality prompts (and selecting "a" to show all options:
+This initiates the interactive session and will store the results in "d".  You enter your choice at the prompt and hit enter.  I won't walk through all the options here as they are pretty intuitive.
+Here's what the menu looks like after choosing English as a language and getting past the first few formality prompts (and selecting "a" to show all options):
 
 ```{ warning=FALSE, message=FALSE}
 ==============================================
@@ -84,7 +84,7 @@ Enter your choice:
 
 
 
-There's loads to discover here and lot of really nice data to work with.
+There's loads to discover here and lot of really nice data to work with!
 For this example, we'll take a look at some Swedish live birth data over time.
 From the above menu I continue through the menu making sure to make good use of the "*" option to select all,
 and check the options to download the data not as a JSON,
@@ -95,7 +95,7 @@ mother’s age and child’s sex for years 1968 - 2021 stored in the item "d".
 
 ```{r, eval=FALSE, results='hide', error=FALSE, warning=FALSE, message=FALSE}
 
-df <- d$data # data stored in 'data' from the list.
+df <- d$data #data stored in 'data' from the list.
 
 head(df)
 
@@ -117,7 +117,7 @@ Looks like "region" has an aggregate "Sweden" category.
 The other columns are age of the mother, sex (whether child is male or female), year, and number of births. 
 We'll do some quick filtering here removing the aggregate "Sweden" data in region to avoid double counting,
 selecting data on the individual counties(selecting obs containing the string "county"), focusing only on the "total" data,
-and finally some quick renaming of male/female to boy/girl
+and finally some quick renaming of male/female to boy/girl.
 
 
 ```{r, eval=FALSE, results='hide', error=FALSE, warning=FALSE, message=FALSE}
@@ -181,9 +181,9 @@ Woah!
 According to the data,
 Swedes were pretty active birthing babies during the last half of the 1980's.
 
-As we have regional data, let's take a look at which regions had the greatest number of live births in 2021.
+As we have regional data, let's also take a look at which regions had the greatest number of live births in 2021.
 Here we continue with __group_by__ and __summarise__ and utilize ggplot's __geom_col__ to get a column chart.
-In order to get the regions in descending order by births, we use the function __fct_reorder__ and lastly __coor_flip__ flips the x/y cordinates so we get a nice horizontal figure. 
+In order to get the regions in descending order by births, we use the function __fct_reorder__ and lastly __coor_flip__ flips the x/y coordinates so we get a nice horizontal figure. 
 
 
 ```{r, eval=FALSE, results='hide', error=FALSE, warning=FALSE, message=FALSE}
@@ -224,8 +224,7 @@ For further information check out the SCB website here:
 
 https://www.scb.se/
 
-And the
-The _pxweb_ package also has an excellent vingnet that you can find here:
+And the __pxweb__ package also has an excellent vignette that you can find here:
 
 https://cran.r-project.org/web/packages/pxweb/vignettes/pxweb.html
 

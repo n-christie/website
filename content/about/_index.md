@@ -1,8 +1,7 @@
 ---
 cascade:
   headless: true
-description: |
-  A website template for Hugo developed by RStudio & Formspree and available for free.
+description: 
 show_header: true
 sidebar_left: true
 title: About

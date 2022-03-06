@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.91.0" />
-<title>Swedish statistical data with R - Fun with Statistikmyndigheten | Nick</title>
+<title>Statistics Sweden with R - Fun with Statistikmyndigheten | Nick Christie</title>
 
 
 
@@ -24,8 +24,8 @@
 <meta name="description" content="A modern, beautiful, and easily configurable blog theme for Hugo.">
 
 
-<meta property="og:site_name" content="Nick">
-<meta property="og:title" content="Swedish statistical data with R - Fun with Statistikmyndigheten | Nick">
+<meta property="og:site_name" content="Nick Christie">
+<meta property="og:title" content="Statistics Sweden with R - Fun with Statistikmyndigheten | Nick Christie">
 <meta property="og:description" content="A modern, beautiful, and easily configurable blog theme for Hugo." />
 <meta property="og:type" content="page" />
 <meta property="og:url" content="/post/2022-03-06-using-r-with-statistikmyndigheten-swedish-statistical-data/" />
@@ -39,10 +39,10 @@
         <meta property="twitter:card" content="summary_large_image">
         <meta name="twitter:image" content="/img/papillons.jpg" >
     
-  <meta itemprop="name" content="Swedish statistical data with R - Fun with Statistikmyndigheten">
+  <meta itemprop="name" content="Statistics Sweden with R - Fun with Statistikmyndigheten">
 <meta itemprop="description" content="I recently discovered the R package pxweb which facilitates access to public statistical data in Sweden.As with many officially-run sites providing public data,navigating menus and manually downloading files can be cumbersome,much better to gain access with an API where you can download data directly and start using it.However,just mentioning the word “API” may scare away a few folks,so coming across packages like pxweb is always a refreshing discovery."><meta itemprop="datePublished" content="2022-03-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-03-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="983">
+<meta itemprop="wordCount" content="989">
 <meta itemprop="keywords" content="" />
   
   <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -63,7 +63,7 @@
 <header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
   <nav class="site-nav db dt-l w-100" role="navigation">
     <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="/" title="Home">
-      <img src="/img/sum.png" class="dib db-l h2 w-auto" alt="Nick">
+      <img src="/img/sum.png" class="dib db-l h2 w-auto" alt="Nick Christie">
     </a>
     <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
       
@@ -96,7 +96,7 @@
   <section class="page-content mw7 center">
     <article class="post-content pa0 ph4-l">
       <header class="post-header">
-        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Swedish statistical data with R - Fun with Statistikmyndigheten</h1>
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Statistics Sweden with R - Fun with Statistikmyndigheten</h1>
         
         
         
@@ -109,13 +109,13 @@
 <script src="/post/2022-03-06-using-r-with-statistikmyndigheten-swedish-statistical-data/index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>I recently discovered the R package <em>pxweb</em> which facilitates access to public statistical data in Sweden.
+<p>I recently discovered the R package <strong>pxweb</strong> which facilitates access to public statistical data in Sweden.
 As with many officially-run sites providing public data,
 navigating menus and manually downloading files can be cumbersome,
 much better to gain access with an API where you can download data directly and start using it.
 However,
 just mentioning the word “API” may scare away a few folks,
-so coming across packages like <em>pxweb</em> is always a refreshing discovery.
+so coming across packages like <strong>pxweb</strong> is always a refreshing discovery.
 Let’s take a quick look and see how is works!</p>
 <p>First,
 let’s load some packages.</p>
@@ -134,12 +134,12 @@ library(janitor) # for some excellent re-naming functions
 Sys.setlocale(locale=&quot;UTF-8&quot;) # recommended to deal with åäö vowels</code></pre>
 <p>Unless we’re talking enormous data sets that make no sense storing on your personal computer,
 I am a proponent of getting all the data once and using R to do any filtering or subsetting.
-The <em>pxweb</em> package makes this a breeze with built-in time outs for requests and a nice little interface to quickly find the data you need.</p>
+The <strong>pxweb</strong> package makes this a breeze with built-in time outs for requests and a nice little interface to quickly find the data you need.</p>
 <p>We’ll take a look at the interface first,
-we can do that by calling the interactive function <em>pcweb</em> which starts the interactive session and will guide you to the data you like:</p>
+we can do that by calling the interactive function <strong>pxweb</strong> which starts the interactive session and will guide you to the data you like:</p>
 <pre class="r"><code>d &lt;- pxweb_interactive(&quot;api.scb.se&quot;)</code></pre>
-<p>This initiates the interactive session. You enter your choice at the prompt and hit enter. I won’t walk through all the options here as they are pretty self-explanatory.
-Here’s what the menu looks like after choosing English as a language and getting past the first few formality prompts (and selecting “a” to show all options:</p>
+<p>This initiates the interactive session and will store the results in “d”. You enter your choice at the prompt and hit enter. I won’t walk through all the options here as they are pretty intuitive.
+Here’s what the menu looks like after choosing English as a language and getting past the first few formality prompts (and selecting “a” to show all options):</p>
 <pre warning="FALSE," message="FALSE"><code>==============================================
  R PXWEB: Content of &#39;api.scb.se&#39;
           at &#39;/OV0104/v1/doris/en/ssd&#39;
@@ -165,14 +165,14 @@ Here’s what the menu looks like after choosing English as a language and getti
 ==============================================
 Enter your choice:
 (&#39;esc&#39; = Quit, &#39;b&#39; = Back, &#39;i&#39; = Show id) </code></pre>
-<p>There’s loads to discover here and lot of really nice data to work with.
+<p>There’s loads to discover here and lot of really nice data to work with!
 For this example, we’ll take a look at some Swedish live birth data over time.
 From the above menu I continue through the menu making sure to make good use of the "*" option to select all,
 and check the options to download the data not as a JSON,
 but as a R data.frame.
 The result is live births by region,
 mother’s age and child’s sex for years 1968 - 2021 stored in the item “d”.</p>
-<pre class="r"><code>df &lt;- d$data # data stored in &#39;data&#39; from the list.
+<pre class="r"><code>df &lt;- d$data #data stored in &#39;data&#39; from the list.
 
 head(df)</code></pre>
 <pre warning="FALSE," message="FALSE"><code>&gt; head(df)
@@ -187,7 +187,7 @@ head(df)</code></pre>
 The other columns are age of the mother, sex (whether child is male or female), year, and number of births.
 We’ll do some quick filtering here removing the aggregate “Sweden” data in region to avoid double counting,
 selecting data on the individual counties(selecting obs containing the string “county”), focusing only on the “total” data,
-and finally some quick renaming of male/female to boy/girl</p>
+and finally some quick renaming of male/female to boy/girl.</p>
 <pre class="r"><code>df_births &lt;- df %&gt;% 
   filter(region != &quot;Sweden&quot;) %&gt;%
   mutate(year = as.numeric(year),
@@ -217,9 +217,9 @@ utilizing R’s power combination of <strong>group_by</strong> and <strong>summa
 <p>Woah!</p>
 <p>According to the data,
 Swedes were pretty active birthing babies during the last half of the 1980’s.</p>
-<p>As we have regional data, let’s take a look at which regions had the greatest number of live births in 2021.
+<p>As we have regional data, let’s also take a look at which regions had the greatest number of live births in 2021.
 Here we continue with <strong>group_by</strong> and <strong>summarise</strong> and utilize ggplot’s <strong>geom_col</strong> to get a column chart.
-In order to get the regions in descending order by births, we use the function <strong>fct_reorder</strong> and lastly <strong>coor_flip</strong> flips the x/y cordinates so we get a nice horizontal figure.</p>
+In order to get the regions in descending order by births, we use the function <strong>fct_reorder</strong> and lastly <strong>coor_flip</strong> flips the x/y coordinates so we get a nice horizontal figure.</p>
 <pre class="r"><code>df_births %&gt;% 
   filter(year == 2021) %&gt;% 
   group_by(region,sex) %&gt;% 
@@ -239,8 +239,7 @@ there are countless hours of Swedish fun to be had.
 This is just the tip of the iceberg and hopefully you have fun exploring the data!</p>
 <p>For further information check out the SCB website here:</p>
 <p><a href="https://www.scb.se/" class="uri">https://www.scb.se/</a></p>
-<p>And the
-The <em>pxweb</em> package also has an excellent vingnet that you can find here:</p>
+<p>And the <strong>pxweb</strong> package also has an excellent vignette that you can find here:</p>
 <p><a href="https://cran.r-project.org/web/packages/pxweb/vignettes/pxweb.html" class="uri">https://cran.r-project.org/web/packages/pxweb/vignettes/pxweb.html</a></p>
 
         
@@ -251,7 +250,7 @@ The <em>pxweb</em> package also has an excellent vingnet that you can find here:
   </dl>
   <dl class="f6 lh-copy">
     <dt class="fw7">Length:</dt>
-    <dd class="fw5 ml0">5 minute read, 983 words</dd>
+    <dd class="fw5 ml0">5 minute read, 989 words</dd>
   </dl>
   
   

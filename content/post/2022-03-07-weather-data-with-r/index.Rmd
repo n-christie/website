@@ -80,7 +80,7 @@ str(station_list_sw)
  $ end         : Date, format: "1991-05-05" "1977-06-30" ...
 ```
 
-Notice is that __NOAA_countryStations__ returns the latitude and longitude of the stations,
+Notice that __NOAA_countryStations__ returns the latitude and longitude of the stations,
 data which we could use to make some nice maps,
 more on that later.
 Also,
@@ -162,6 +162,10 @@ df_weather_sw <- df_station %>%
 
 ```
 
+Next,
+let's make a grouped bar chart to visualized the data.
+It might be overload with the 20 stations we got,
+so how about we just pick a random 5 stations to plot.
 
 ```{r, eval=FALSE, results='hide', error=FALSE, warning=FALSE, message=FALSE}
 
@@ -173,7 +177,7 @@ rand_station <- df_weather_sw %>% # Select 5 random stations from df
   sample_n(5) 
 
 df_weather_sw %>%
-  filter(station.name %in% rand_station$station.name) %>% 
+  filter(station.name %in% rand_station$station.name) %>% # keeps the rand stations we identified.
   ggplot(aes(x = factor(month), y = mean_temp, fill = station.name)) +
   geom_bar(position="dodge", stat="identity") + 
   scale_fill_brewer(palette = "Set1") +
@@ -199,6 +203,8 @@ ggsave(here("content/post/2022-03-07-weather-data-with-r", "staion_temp.jpg"),
 
 ![](staion_temp.jpg)
 
+5 out of the 12 months experienced below 0 C temperature on average in 2021.
+Yup, sounds Swedish.
 
 
 While we're at it,
@@ -238,6 +244,7 @@ ggsave(here("content/post/2022-03-07-weather-data-with-r", "staion_map.jpg"),
 ![](staion_map.jpg)
 We could do some more fancy plotting with geographical data, 
 but I think I'll save that for another post.
+Until then...
 
 Happy weather plotting!
 

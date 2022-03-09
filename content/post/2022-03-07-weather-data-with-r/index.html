@@ -56,7 +56,7 @@ str(station_list_sw) </code></pre>
  $ elev.m.     : num  375 508 337 365 360 402 17 7 318 403 ...
  $ begin       : Date, format: &quot;1935-01-01&quot; &quot;1935-01-01&quot; ...
  $ end         : Date, format: &quot;1991-05-05&quot; &quot;1977-06-30&quot; ...</code></pre>
-<p>Notice is that <strong>NOAA_countryStations</strong> returns the latitude and longitude of the stations,
+<p>Notice that <strong>NOAA_countryStations</strong> returns the latitude and longitude of the stations,
 data which we could use to make some nice maps,
 more on that later.
 Also,
@@ -115,6 +115,10 @@ coupled with <strong>group_by</strong> and <strong>summarise</strong> to get a m
   summarise(mean_temp = mean(temp),
             lat = lat,
             lon = lon)</code></pre>
+<p>Next,
+let’s make a grouped bar chart to visualized the data.
+It might be overload with the 20 stations we got,
+so how about we just pick a random 5 stations to plot.</p>
 <pre class="r"><code>theme_set(theme_light())
 
 rand_station &lt;- df_weather_sw %&gt;% # Select 5 random stations from df
@@ -123,7 +127,7 @@ rand_station &lt;- df_weather_sw %&gt;% # Select 5 random stations from df
   sample_n(5) 
 
 df_weather_sw %&gt;%
-  filter(station.name %in% rand_station$station.name) %&gt;% 
+  filter(station.name %in% rand_station$station.name) %&gt;% # keeps the rand stations we identified.
   ggplot(aes(x = factor(month), y = mean_temp, fill = station.name)) +
   geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;) + 
   scale_fill_brewer(palette = &quot;Set1&quot;) +
@@ -134,6 +138,8 @@ df_weather_sw %&gt;%
        fill = &quot;Station name&quot;) + 
   theme(legend.position=&quot;bottom&quot;)</code></pre>
 <p><img src="staion_temp.jpg" /></p>
+<p>5 out of the 12 months experienced below 0 C temperature on average in 2021.
+Yup, sounds Swedish.</p>
 <p>While we’re at it,
 we can load the <strong>sf</strong> and <strong>rnaturalearth</strong> packages to quickly plot the location of the weather stations we downloaded on a map.</p>
 <pre class="r"><code>library(sf)
@@ -153,7 +159,8 @@ ggplot(data = world) +
        y = &quot;Latitude&quot;)</code></pre>
 <p><img src="staion_map.jpg" />
 We could do some more fancy plotting with geographical data,
-but I think I’ll save that for another post.</p>
+but I think I’ll save that for another post.
+Until then…</p>
 <p>Happy weather plotting!</p>
 <p>For more information on <strong>FluMoDL</strong> check it out here:</p>
 <p><a href="https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3" class="uri">https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3</a></p>

@@ -2,7 +2,7 @@
 date: "2019-02-25T13:38:41-06:00"
 description: Feel free to send me a message!
 draft: false
-formspree_form_id: nickachristie@gmail.com
+formspree_form_id: https://formspree.io/f/mpzbzeqn
 layout: split-right
 name: Contact Us Form
 show_poweredby_formspree: false

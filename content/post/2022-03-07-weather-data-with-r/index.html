@@ -1,0 +1,154 @@
+---
+title: Weather data with R
+author: ''
+date: '2022-03-07'
+slug: []
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Last week I read a great paper: “Weathering cash flow shocks” by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow socks have on utilizing and increasing credit lines.</p>
+<p>The authors scrape decades worth of publicly available weather data from weather stations across the United States to identify abnormal snow cover in counties where firm headquarters are located.
+They use this data to identify exogenous shocks to cash flow and subsequently test behavior related to these drops in internal finance. Neat!</p>
+<p>My first thought when reading this was: “I wonder if there is an R package for this?”</p>
+<p>My search began and what do you know, there is!
+Two in fact!</p>
+<p>I first took a look at the <strong>rnoaa</strong> package available on CRAN,
+and after spending some time with it I concluded it was a little tricky to navigate and the documentation left more to be desired.</p>
+<p>I then stumbled upon the lovely <strong>FluMoDL</strong> package,
+which has a focus on implementing methods to estimate influenza-attributable mortality.
+That sounds like absolutely nothing to do with weather station data.</p>
+<p>However,
+a primary input in these models is a daily mean temperature for the region of interest and the authors bundled up some functions that efficiently access and return weather station data from NOAA.</p>
+<p>Here’s how it works.
+the function <strong>NOAA_getGSOD</strong> will download daily weather summaries for a set of weather stations for a given set of years.
+So first we will need to get a list of interesting stations.
+<strong>FluMoDL</strong> has two functions to do this,
+<strong>NOAA_allStations</strong> which returns a list of available stations,
+and <strong>NOAA_countryStations</strong> which downloads a list of stations located in a particular country.
+We’ll be be using the latter to grab some Swedish weather data.</p>
+<pre class="r"><code>install.packages(&quot;FluMoDL&quot;)
+
+library(FluMoDL)
+library(tidyverse)
+library(lubridate)</code></pre>
+<pre class="r"><code>station_list_sw &lt;- NOAA_countryStations(&#39;SW&#39;,
+                                        from = 2020,
+                                        to = 2021) #returns Swedish stations from 2020-2021
+
+str(station_list_sw) </code></pre>
+<pre><code>&gt; str(station_list_sw)
+&#39;data.frame&#39;:   157 obs. of  11 variables:
+ $ usaf        : chr  &quot;020480&quot; &quot;020500&quot; &quot;020520&quot; &quot;020530&quot; ...
+ $ wban        : int  99999 99999 99999 99999 99999 99999 99999 99999 99999 99999 ...
+ $ station.name: chr  &quot;MALMBERGET&quot; &quot;RIKSGRANSEN&quot; &quot;KVIKKJOKK         &amp;&quot; &quot;MALMBERGET&quot; ...
+ $ ctry        : chr  &quot;SW&quot; &quot;SW&quot; &quot;SW&quot; &quot;SW&quot; ...
+ $ state       : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+ $ icao        : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+ $ lat         : num  67.2 68.4 67 67.1 68 ...
+ $ lon         : num  20.7 18.1 17.8 20.7 21.8 ...
+ $ elev.m.     : num  375 508 337 365 360 402 17 7 318 403 ...
+ $ begin       : Date, format: &quot;1935-01-01&quot; &quot;1935-01-01&quot; ...
+ $ end         : Date, format: &quot;1991-05-05&quot; &quot;1977-06-30&quot; ...</code></pre>
+<p>Notice is that <strong>NOAA_countryStations</strong> returns the latitude and longitude of the stations,
+data which we could use to make some nice maps.
+Also,
+it appears the variable <strong>end</strong> contains dates outside of our range,
+this could be an error of some sort,
+but we’ll fix this below.</p>
+<p>We’ll limit our scope and pull data for the first 20 weather stations,
+using <strong>head(20)</strong> to return the first 20 observations of <strong>station_list_sw</strong>.
+As we are pulling daily weather data,
+we’ll limit the amount of data for this exercise,
+but it should give you an idea of what is possible.</p>
+<p>First,
+we filter out observations with years below 2020 leveraging the <strong>year</strong> function in <strong>lubridate</strong>.
+Then we will pass the object to <strong>NOAA_getGSOD</strong>,
+along with a year range and a few options to download some data:
+<strong>match.columns = “station.name”</strong> to include a vector of stations names in the output,
+and <strong>progress = TRUE</strong> to include a progress bar on the download.</p>
+<pre class="r"><code>stations_sw &lt;- station_list_sw %&gt;%
+  filter(year(end) &gt;= 2021) %&gt;% 
+  head(20)
+
+
+df_station &lt;- NOAA_getGSOD(stations_sw,
+                    years = 2021,
+                    match.columns = &quot;station.name&quot;,
+                    progress = TRUE)
+
+
+head(df_station)</code></pre>
+<pre><code>&gt; head(df_station)
+    usaf  wban       date temp tempC dewp dewpC    slp slpC   stp stpC visib visibC wdsp
+1 020550 99999 2021-01-01 -5.5    24 -6.9    24     NA    0    NA    0  19.6     24  3.7
+2 020640 99999 2021-01-01 -4.6    24 -7.0    24     NA    0    NA    0  16.5     24  3.7
+3 020810 99999 2021-01-01 -5.6    24 -6.8    24 1015.7   24 974.2   24  18.7     23  4.9
+4 020550 99999 2021-01-02 -8.2    24 -9.6    24     NA    0    NA    0  27.0     24  3.0
+5 020640 99999 2021-01-02 -6.3    24 -9.5    24     NA    0    NA    0  23.0     24  2.3
+6 020810 99999 2021-01-02 -7.3    24 -8.6    24 1018.2   24 976.5   24  26.4     24  2.6
+  wdspC mxspd gust maxtemp maxtempF mintemp mintempF prcp prcpF sndp frshtt station.name
+1    23   7.8   NA    -3.3             -8.5          0.05     G   NA   1000     NAIMAKKA
+2    24   5.8 11.5    -2.8        *    -7.4        * 0.12     G   NA   1000   SAITTAROVA
+3    24   7.8   NA    -3.1             -8.0          0.03     G   NA   1000   KARESUANDO
+4    18   3.9   NA    -7.0            -14.4        * 0.00     G   NA   1000     NAIMAKKA
+5    24   4.1   NA    -5.8        *    -7.4          0.03     G   NA   1000   SAITTAROVA
+6    22   5.8   NA    -6.4            -13.9        * 0.00     G   NA   1000   KARESUANDO</code></pre>
+<p>We can now merge the weather data with the station data and some some quick tidying to get a nice final data set to work with.
+We will take advantage of the pipe and dplyr’s excellent data cleaning functions,
+coupled with <strong>group_by</strong> and <strong>summarise</strong> to get a monthly average temperature by station.</p>
+<pre class="r"><code>df_weather_sw &lt;- df_station %&gt;% 
+  left_join(station_list_sw,
+            by = &quot;station.name&quot;) %&gt;% 
+  select(date, station.name, temp, lat, lon) %&gt;% 
+  mutate(month = month(date, label = TRUE)) %&gt;% 
+  group_by(station.name, month) %&gt;% 
+  summarise(mean_temp = mean(temp),
+            lat = lat,
+            lon = lon)</code></pre>
+<pre class="r"><code>theme_set(theme_light())
+
+rand_station &lt;- df_weather_sw %&gt;% # Select 5 random staions from df
+  group_by(station.name) %&gt;% 
+  summarise() %&gt;% 
+  sample_n(5) 
+
+df_weather_sw %&gt;%
+  filter(station.name %in% rand_station$station.name) %&gt;% 
+  ggplot(aes(x = factor(month), y = mean_temp, fill = station.name)) +
+  geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;) + 
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  labs(title = &quot;Average temp of Swedish weather stations in 2021&quot;,
+       subtitle = &quot;Five random stations&quot;,
+       x = &quot;Month&quot;,
+       y = &quot;Avg Temp in C&quot;,
+       fill = &quot;Station name&quot;) + 
+  theme(legend.position=&quot;bottom&quot;)</code></pre>
+<p><img src="staion_temp.jpg" /></p>
+<p>I’m going to go out on a limb here and guess that NOAA doesn’t have the most comprehensive coverage outside of the US as only four out of ten stations ended up having workable data.</p>
+<p>While we’re at it,
+we can load the <strong>sf</strong> and <strong>rnaturalearth</strong> packages to quickly plot the location of the weather stations we downloaded on a map.</p>
+<pre class="r"><code>library(sf)
+library(rnaturalearth)
+
+
+world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)
+
+ggplot(data = world) +
+  geom_sf() +
+  geom_point(data = df_weather_sw, aes(x = lon, y = lat), size = 2, 
+             shape = 23, fill = &quot;darkred&quot;)+
+  coord_sf(xlim = c(1,30), ylim = c(55,72), expand = TRUE) +
+  labs(title = &quot;Location of weather stations in Sweden&quot;,
+       subtitle = &quot;First 20 stations from our download&quot;,
+       x = &quot;Longitude&quot;,
+       y = &quot;Latitude&quot;)</code></pre>
+<p><img src="staion_map.jpg" />
+We could do some more fancy plotting with geographical data,
+but we will save that for another post.</p>
+<p>Happy plotting!</p>
+<p>For more information on <strong>FluMoDL</strong> check it out here:</p>
+<p><a href="https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3" class="uri">https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3</a></p>

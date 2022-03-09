@@ -7,31 +7,35 @@ categories: []
 tags: []
 ---
 
-Last week I read a great paper: "Weathering cash flow shocks" by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow socks have on utilizing and increasing credit lines.
+Last week I read a paper: "Weathering cash flow shocks" by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow shocks have on utilizing and increasing credit lines.
 
-The authors scrape decades worth of publicly available weather data from weather stations across the United States to identify abnormal snow cover in counties where firm headquarters are located.
-They use this data to identify exogenous shocks to cash flow and subsequently test behavior related to these drops in internal finance.  Neat!
+The authors scrape decades worth of publicly available weather station data from across the United States to identify abnormal snow cover in counties where firm headquarters are located.
+They use this data to identify exogenous shocks to cash flow and subsequently test behavior related to external finance access.  Neat!
 
-My first thought when reading this was: "I wonder if there is an R package for this?"
+My first thought when reading this was: "I wonder if there is an R package for getting this weather data?"
 
-My search began and what do you know, there is!
+What do you know, there is!
 Two in fact!
 
 I first took a look at the __rnoaa__ package available on CRAN,
-and after spending some time with it I concluded it was a little tricky to navigate and the documentation left more to be desired.
+and after spending some time with it I concluded it was a little tricky to navigate and the documentation left a little to be desired.
 
-I then stumbled upon the lovely __FluMoDL__ package,
+I then stumbled upon the interesting __FluMoDL__ package,
 which has a focus on implementing methods to estimate influenza-attributable mortality.
-That sounds like absolutely nothing to do with weather station data.
+That sounds like absolutely nothing to do with weather station data,
+but just wait.
 
-However,
-a primary input in these models is a daily mean temperature for the region of interest and the authors bundled up some functions that efficiently access and return weather station data from NOAA.
+
+A primary input in these influenza-mortality models turns out to be daily mean temperature for the region in focus.
+The authors bundled up some functions that efficiently access and return weather station data from NOAA.
 
 Here's how it works.
 the function __NOAA_getGSOD__ will download daily weather summaries for a set of weather stations for a given set of years.
-So first we will need to get a list of interesting stations.
+First,
+we will need to get a list of stations.
 __FluMoDL__ has two functions to do this,
-__NOAA_allStations__ which returns a list of available stations,
+__NOAA_allStations__,
+which returns a list of all available stations,
 and __NOAA_countryStations__ which downloads a list of stations located in a particular country.
 We'll be be using the latter to grab some Swedish weather data.
 
@@ -77,7 +81,8 @@ str(station_list_sw)
 ```
 
 Notice is that __NOAA_countryStations__ returns the latitude and longitude of the stations,
-data which we could use to make some nice maps.
+data which we could use to make some nice maps,
+more on that later.
 Also,
 it appears the variable __end__ contains dates outside of our range,
 this could be an error of some sort,
@@ -86,13 +91,14 @@ but we'll fix this below.
 We'll limit our scope and pull data for the first 20 weather stations,
 using __head(20)__ to return the first 20 observations of __station_list_sw__.
 As we are pulling daily weather data,
-we'll limit the amount of data for this exercise,
-but it should give you an idea of what is possible.
+we'll stick to a relatively small amount of data for this exercise,
+but it should give you an idea of what is possible with __FluMoDL__.
 
 First,
 we filter out observations with years below 2020 leveraging the __year__ function in __lubridate__.
 Then we will pass the object to __NOAA_getGSOD__,
-along with a year range and a few options to download some data:
+along with a year range, just 2021 in this case,
+and a few options to download some data:
 __match.columns = "station.name"__ to include a vector of stations names in the output,
 and __progress = TRUE__ to include a progress bar on the download.
 
@@ -114,6 +120,8 @@ head(df_station)
 
 
 ```
+
+Here's a peak at what the data look like.
 
 ```{}
 > head(df_station)
@@ -159,7 +167,7 @@ df_weather_sw <- df_station %>%
 
 theme_set(theme_light())
 
-rand_station <- df_weather_sw %>% # Select 5 random staions from df
+rand_station <- df_weather_sw %>% # Select 5 random stations from df
   group_by(station.name) %>% 
   summarise() %>% 
   sample_n(5) 
@@ -191,7 +199,7 @@ ggsave(here("content/post/2022-03-07-weather-data-with-r", "staion_temp.jpg"),
 
 ![](staion_temp.jpg)
 
-I'm going to go out on a limb here and guess that NOAA doesn't have the most comprehensive coverage outside of the US as only four out of ten stations ended up having workable data.
+
 
 While we're at it,
 we can load the __sf__ and __rnaturalearth__ packages to quickly plot the location of the weather stations we downloaded on a map. 
@@ -229,9 +237,9 @@ ggsave(here("content/post/2022-03-07-weather-data-with-r", "staion_map.jpg"),
 
 ![](staion_map.jpg)
 We could do some more fancy plotting with geographical data, 
-but we will save that for another post.
+but I think I'll save that for another post.
 
-Happy plotting!
+Happy weather plotting!
 
 For more information on __FluMoDL__ check it out here:
 

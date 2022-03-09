@@ -10,24 +10,27 @@ tags: []
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>Last week I read a great paper: “Weathering cash flow shocks” by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow socks have on utilizing and increasing credit lines.</p>
-<p>The authors scrape decades worth of publicly available weather data from weather stations across the United States to identify abnormal snow cover in counties where firm headquarters are located.
-They use this data to identify exogenous shocks to cash flow and subsequently test behavior related to these drops in internal finance. Neat!</p>
-<p>My first thought when reading this was: “I wonder if there is an R package for this?”</p>
-<p>My search began and what do you know, there is!
+<p>Last week I read a paper: “Weathering cash flow shocks” by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow shocks have on utilizing and increasing credit lines.</p>
+<p>The authors scrape decades worth of publicly available weather station data from across the United States to identify abnormal snow cover in counties where firm headquarters are located.
+They use this data to identify exogenous shocks to cash flow and subsequently test behavior related to external finance access. Neat!</p>
+<p>My first thought when reading this was: “I wonder if there is an R package for getting this weather data?”</p>
+<p>What do you know, there is!
 Two in fact!</p>
 <p>I first took a look at the <strong>rnoaa</strong> package available on CRAN,
-and after spending some time with it I concluded it was a little tricky to navigate and the documentation left more to be desired.</p>
-<p>I then stumbled upon the lovely <strong>FluMoDL</strong> package,
+and after spending some time with it I concluded it was a little tricky to navigate and the documentation left a little to be desired.</p>
+<p>I then stumbled upon the interesting <strong>FluMoDL</strong> package,
 which has a focus on implementing methods to estimate influenza-attributable mortality.
-That sounds like absolutely nothing to do with weather station data.</p>
-<p>However,
-a primary input in these models is a daily mean temperature for the region of interest and the authors bundled up some functions that efficiently access and return weather station data from NOAA.</p>
+That sounds like absolutely nothing to do with weather station data,
+but just wait.</p>
+<p>A primary input in these influenza-mortality models turns out to be daily mean temperature for the region in focus.
+The authors bundled up some functions that efficiently access and return weather station data from NOAA.</p>
 <p>Here’s how it works.
 the function <strong>NOAA_getGSOD</strong> will download daily weather summaries for a set of weather stations for a given set of years.
-So first we will need to get a list of interesting stations.
+First,
+we will need to get a list of stations.
 <strong>FluMoDL</strong> has two functions to do this,
-<strong>NOAA_allStations</strong> which returns a list of available stations,
+<strong>NOAA_allStations</strong>,
+which returns a list of all available stations,
 and <strong>NOAA_countryStations</strong> which downloads a list of stations located in a particular country.
 We’ll be be using the latter to grab some Swedish weather data.</p>
 <pre class="r"><code>install.packages(&quot;FluMoDL&quot;)
@@ -54,7 +57,8 @@ str(station_list_sw) </code></pre>
  $ begin       : Date, format: &quot;1935-01-01&quot; &quot;1935-01-01&quot; ...
  $ end         : Date, format: &quot;1991-05-05&quot; &quot;1977-06-30&quot; ...</code></pre>
 <p>Notice is that <strong>NOAA_countryStations</strong> returns the latitude and longitude of the stations,
-data which we could use to make some nice maps.
+data which we could use to make some nice maps,
+more on that later.
 Also,
 it appears the variable <strong>end</strong> contains dates outside of our range,
 this could be an error of some sort,
@@ -62,12 +66,13 @@ but we’ll fix this below.</p>
 <p>We’ll limit our scope and pull data for the first 20 weather stations,
 using <strong>head(20)</strong> to return the first 20 observations of <strong>station_list_sw</strong>.
 As we are pulling daily weather data,
-we’ll limit the amount of data for this exercise,
-but it should give you an idea of what is possible.</p>
+we’ll stick to a relatively small amount of data for this exercise,
+but it should give you an idea of what is possible with <strong>FluMoDL</strong>.</p>
 <p>First,
 we filter out observations with years below 2020 leveraging the <strong>year</strong> function in <strong>lubridate</strong>.
 Then we will pass the object to <strong>NOAA_getGSOD</strong>,
-along with a year range and a few options to download some data:
+along with a year range, just 2021 in this case,
+and a few options to download some data:
 <strong>match.columns = “station.name”</strong> to include a vector of stations names in the output,
 and <strong>progress = TRUE</strong> to include a progress bar on the download.</p>
 <pre class="r"><code>stations_sw &lt;- station_list_sw %&gt;%
@@ -82,6 +87,7 @@ df_station &lt;- NOAA_getGSOD(stations_sw,
 
 
 head(df_station)</code></pre>
+<p>Here’s a peak at what the data look like.</p>
 <pre><code>&gt; head(df_station)
     usaf  wban       date temp tempC dewp dewpC    slp slpC   stp stpC visib visibC wdsp
 1 020550 99999 2021-01-01 -5.5    24 -6.9    24     NA    0    NA    0  19.6     24  3.7
@@ -111,7 +117,7 @@ coupled with <strong>group_by</strong> and <strong>summarise</strong> to get a m
             lon = lon)</code></pre>
 <pre class="r"><code>theme_set(theme_light())
 
-rand_station &lt;- df_weather_sw %&gt;% # Select 5 random staions from df
+rand_station &lt;- df_weather_sw %&gt;% # Select 5 random stations from df
   group_by(station.name) %&gt;% 
   summarise() %&gt;% 
   sample_n(5) 
@@ -128,7 +134,6 @@ df_weather_sw %&gt;%
        fill = &quot;Station name&quot;) + 
   theme(legend.position=&quot;bottom&quot;)</code></pre>
 <p><img src="staion_temp.jpg" /></p>
-<p>I’m going to go out on a limb here and guess that NOAA doesn’t have the most comprehensive coverage outside of the US as only four out of ten stations ended up having workable data.</p>
 <p>While we’re at it,
 we can load the <strong>sf</strong> and <strong>rnaturalearth</strong> packages to quickly plot the location of the weather stations we downloaded on a map.</p>
 <pre class="r"><code>library(sf)
@@ -148,7 +153,7 @@ ggplot(data = world) +
        y = &quot;Latitude&quot;)</code></pre>
 <p><img src="staion_map.jpg" />
 We could do some more fancy plotting with geographical data,
-but we will save that for another post.</p>
-<p>Happy plotting!</p>
+but I think I’ll save that for another post.</p>
+<p>Happy weather plotting!</p>
 <p>For more information on <strong>FluMoDL</strong> check it out here:</p>
 <p><a href="https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3" class="uri">https://www.rdocumentation.org/packages/FluMoDL/versions/0.0.3</a></p>

@@ -13,8 +13,8 @@
       <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>/post/2022-03-07-weather-data-with-r/</guid>
-      <description>Last week I read a great paper: “Weathering cash flow shocks” by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow socks have on utilizing and increasing credit lines.
-The authors scrape decades worth of publicly available weather data from weather stations across the United States to identify abnormal snow cover in counties where firm headquarters are located.</description>
+      <description>Last week I read a paper: “Weathering cash flow shocks” by Brown et al. (2021) which cleverly used unexpected severe winter weather as a setting to examine shocks to firm cash flow and the effect these cash flow shocks have on utilizing and increasing credit lines.
+The authors scrape decades worth of publicly available weather station data from across the United States to identify abnormal snow cover in counties where firm headquarters are located.</description>
     </item>
     
     <item>

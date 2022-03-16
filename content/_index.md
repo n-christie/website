@@ -2,7 +2,7 @@
 action_label: More about me &rarr;
 action_link: /about
 action_type: text
-description: Welcome to my site! Here you will find information on my reserach along with my thoughts on Corporate Finance topics and how we can take advantage of what R has to offer.  Have a look around!
+description: Welcome to my site! Here you will find information on my research along with my thoughts on Corporate Finance topics and how we can take advantage of what R has to offer.  Have a look around!
 image_left: false
 images:
 - img/gg_bridge.jpg

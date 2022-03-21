@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.91.0" />
+<title>Presenting the Pipe | Nick Christie</title>
+
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="A modern, beautiful, and easily configurable blog theme for Hugo.">
+
+
+<meta property="og:site_name" content="Nick Christie">
+<meta property="og:title" content="Presenting the Pipe | Nick Christie">
+<meta property="og:description" content="A modern, beautiful, and easily configurable blog theme for Hugo." />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="/post/2022-03-21-presenting-the-pipe/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="/post/2022-03-21-presenting-the-pipe/featured.jpg" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="/post/2022-03-21-presenting-the-pipe/featured.jpg" >
+    
+    
+  <meta itemprop="name" content="Presenting the Pipe">
+<meta itemprop="description" content="It’s a baffling thing at first.And then,once you get the hang of it,you can’t seem to imagine doing anything in another way.The %&gt;% in R is just darn nifty.
+So what’s the deal with the pipe?
+In the process of working with your data, you are going to have a series of steps you perform to get to the final product.For example,you might start out with a ."><meta itemprop="datePublished" content="2022-03-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-03-15T00:00:00+00:00" />
+<meta itemprop="wordCount" content="601"><meta itemprop="image" content="/post/2022-03-21-presenting-the-pipe/featured.jpg">
+<meta itemprop="keywords" content="" />
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.5477c20f89738a32763391bbc2f43dbdfc2db0e7faba550c86cac92c99efa6b6.css" integrity="sha256-VHfCD4lzijJ2M5G7wvQ9vfwtsOf6ulUMhsrJLJnvprY=" media="screen">
+  
+  
+  <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.0afbfb447313a0b31b809bec11be75e70b0da4c0dc82fd8a6f13e5a2ccf21e4a.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="/" title="Home">
+      <img src="/img/sum.png" class="dib db-l h2 w-auto" alt="Nick Christie">
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/about/" title="About Nick">About</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/post/" title="Penny for your thoughts">Blog</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/learn/" title="learn more">Learning</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Presenting the Pipe</h1>
+        
+        <p class="f6 measure lh-copy mv1"></p>
+        <p class="f7 db mv0 ttu">March 15, 2022</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        
+<script src="/post/2022-03-21-presenting-the-pipe/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>It’s a baffling thing at first.
+And then,
+once you get the hang of it,
+you can’t seem to imagine doing anything in another way.
+The %&gt;% in R is just darn nifty.</p>
+<p>So what’s the deal with the pipe?</p>
+<p>In the process of working with your data, you are going to have a series of steps you perform to get to the final product.
+For example,
+you might start out with a .csv file that first needs to be loaded.
+Then you would perhaps filter out some data that you don’t need, maybe calculate an avergage in every group you have, maybe rename a variable if needed,
+and then sort the resulting data.
+When we perform these tasks,
+each one of these actions would probably be a line of code that takes the data,
+does an action,
+then saves the output.</p>
+<p>Often, this results in what is known as the “Multiple object option” which makes reading code a little tiresome and saves unnecessary objects in the environment.</p>
+<p>Here’s what that would look like:</p>
+<pre class="r"><code>library(tidyverse)
+
+df &lt;- mtcars
+df_1 &lt;- filter(df, am == 1)
+df_2 &lt;- group_by(df_1, cyl)
+df_3 &lt;- summarise(df_2, &quot;Average MPG&quot; = mean(mpg))
+df_4 &lt;- rename(df_3, &quot;No. of Cylinders&quot; = cyl)
+df_final &lt;- arrange(df_4, desc(&quot;Average MPG&quot;))
+
+df_final</code></pre>
+<p>Let’s walk through that. First, we saved the built-in dataset, “mtcars” in the objef “df”.
+Then we executed a series of commands:</p>
+<ol style="list-style-type: decimal">
+<li>filtered out observations that do not meet the critereia “am == 1” (transmission type = manual)</li>
+<li>group the dataset into groups based on “cyl” (number of cylinders)</li>
+<li>calculate the “Average MPG” (miles per gallon) of each group.</li>
+<li>rename the variable “cyl” to “No. of Cylinders”</li>
+<li>sort the data by “Average MPG”</li>
+</ol>
+<p>Here’s the result:</p>
+<pre><code>
+  `No. of Cylinders` `Average MPG`
+               &lt;dbl&gt;         &lt;dbl&gt;
+1                  4          28.1
+2                  6          20.6
+3                  8          15.4
+</code></pre>
+<p>Ok, that doesn’t look impossible to read or figure out once you are familiar with the commands.
+But imagine if you had 300 steps in your analysis!
+You would end up with 300 objects saved and it would be a mess to read through and troubleshoot errors if there were any.</p>
+<p>So how does the pipe come into play?</p>
+<p>Above we saved the result of each step into a new object,
+with the subsequent step using that old saved object to do its thing and then save a new object.
+What the pipe does is allow us to skip this saving part.</p>
+<p>Here’s how it works. we start off like we did before by saving the built-in dataset, “mtcars” into an object, “df_final”.
+At the end of the line,
+we enter the pipe operator, " %&gt;% ", and hit enter.</p>
+<pre class="r"><code>df_final &lt;- mtcars %&gt;% </code></pre>
+<p>Next we replicate the commands from above,
+except we don’t need to specify any data in the options,
+it takes the output from the previous line and uses that!</p>
+<p>I’ll clarify a little bit.
+Let’s take a look:</p>
+<pre class="r"><code>df_final &lt;- mtcars %&gt;% 
+  filter(am == 1) %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarise(&quot;Average MPG&quot; = mean(mpg)) %&gt;% 
+  arrange(desc(&quot;Average MPG&quot;))</code></pre>
+<p>Think of the " %&gt;% " operator as saying <strong>“And then”</strong>.</p>
+<p>So, we take mtcars <strong>and then</strong> we:</p>
+<ol style="list-style-type: decimal">
+<li>filter out obs that do not meet the critereia “am == 1” <strong>and then</strong></li>
+<li>group the dataset into groups based on “cyl” <strong>and then</strong></li>
+<li>calculate the “Average MPG” of each group. <strong>and then</strong></li>
+<li>rename the variable “cyl” to “No. of Cylinders” <strong>and then</strong></li>
+<li>sort the data by “Average MPG”</li>
+</ol>
+<pre class="r"><code>df_final 
+
+  `No. of Cylinders` `Average MPG`
+               &lt;dbl&gt;         &lt;dbl&gt;
+1                  4          28.1
+2                  6          20.6
+3                  8          15.4</code></pre>
+<p>Hopefully, this gives some quick intuition of the pipe! Give it a try, you won’t go back!</p>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">March 15, 2022</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">3 minute read, 601 words</dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+  
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="/post/2022-03-07-weather-data-with-r/">Weather data with R &rarr;</a>
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+
+</div>
+
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/n-christie" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.youtube.com/channel/UCeA88yJZR1RLAs_Ybm9uNtg" title="youtube" target="_blank" rel="noopener">
+      <i class="fab fa-youtube fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/christienick/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+</footer>
+
+      </div>
+    </body>
+</html>

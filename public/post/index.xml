@@ -6,7 +6,18 @@
     <description>Recent content on Nick Christie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Presenting the Pipe</title>
+      <link>/post/2022-03-21-presenting-the-pipe/</link>
+      <pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022-03-21-presenting-the-pipe/</guid>
+      <description>It’s a baffling thing at first.And then,once you get the hang of it,you can’t seem to imagine doing anything in another way.The %&amp;gt;% in R is just darn nifty.
+So what’s the deal with the pipe?
+In the process of working with your data, you are going to have a series of steps you perform to get to the final product.For example,you might start out with a .</description>
+    </item>
+    
     <item>
       <title>Weather data with R</title>
       <link>/post/2022-03-07-weather-data-with-r/</link>

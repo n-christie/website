@@ -1,17 +1,11 @@
 ---
-title: "Presenting the Pipe"
-subtitle: ""
-excerpt: ""
-date: 2022-03-15T14:46:18+01:00
-author: ""
-draft: true
-series:
-tags:
-categories:
-layout: single # single or single-sidebar
+title: Presenting the Pipe
+author: ''
+date: '2022-03-15'
+slug: []
+categories: []
+tags: []
 ---
-
-
 
 It's a baffling thing at first.
 And then,
@@ -138,5 +132,3 @@ df_final
 ```
 
 Hopefully, this gives some quick intuition of the pipe!  Give it a try, you won't go back!
-
-

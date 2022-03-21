@@ -1,0 +1,94 @@
+---
+title: Presenting the Pipe
+author: ''
+date: '2022-03-15'
+slug: []
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>It’s a baffling thing at first.
+And then,
+once you get the hang of it,
+you can’t seem to imagine doing anything in another way.
+The %&gt;% in R is just darn nifty.</p>
+<p>So what’s the deal with the pipe?</p>
+<p>In the process of working with your data, you are going to have a series of steps you perform to get to the final product.
+For example,
+you might start out with a .csv file that first needs to be loaded.
+Then you would perhaps filter out some data that you don’t need, maybe calculate an avergage in every group you have, maybe rename a variable if needed,
+and then sort the resulting data.
+When we perform these tasks,
+each one of these actions would probably be a line of code that takes the data,
+does an action,
+then saves the output.</p>
+<p>Often, this results in what is known as the “Multiple object option” which makes reading code a little tiresome and saves unnecessary objects in the environment.</p>
+<p>Here’s what that would look like:</p>
+<pre class="r"><code>library(tidyverse)
+
+df &lt;- mtcars
+df_1 &lt;- filter(df, am == 1)
+df_2 &lt;- group_by(df_1, cyl)
+df_3 &lt;- summarise(df_2, &quot;Average MPG&quot; = mean(mpg))
+df_4 &lt;- rename(df_3, &quot;No. of Cylinders&quot; = cyl)
+df_final &lt;- arrange(df_4, desc(&quot;Average MPG&quot;))
+
+df_final</code></pre>
+<p>Let’s walk through that. First, we saved the built-in dataset, “mtcars” in the objef “df”.
+Then we executed a series of commands:</p>
+<ol style="list-style-type: decimal">
+<li>filtered out observations that do not meet the critereia “am == 1” (transmission type = manual)</li>
+<li>group the dataset into groups based on “cyl” (number of cylinders)</li>
+<li>calculate the “Average MPG” (miles per gallon) of each group.</li>
+<li>rename the variable “cyl” to “No. of Cylinders”</li>
+<li>sort the data by “Average MPG”</li>
+</ol>
+<p>Here’s the result:</p>
+<pre><code>
+  `No. of Cylinders` `Average MPG`
+               &lt;dbl&gt;         &lt;dbl&gt;
+1                  4          28.1
+2                  6          20.6
+3                  8          15.4
+</code></pre>
+<p>Ok, that doesn’t look impossible to read or figure out once you are familiar with the commands.
+But imagine if you had 300 steps in your analysis!
+You would end up with 300 objects saved and it would be a mess to read through and troubleshoot errors if there were any.</p>
+<p>So how does the pipe come into play?</p>
+<p>Above we saved the result of each step into a new object,
+with the subsequent step using that old saved object to do its thing and then save a new object.
+What the pipe does is allow us to skip this saving part.</p>
+<p>Here’s how it works. we start off like we did before by saving the built-in dataset, “mtcars” into an object, “df_final”.
+At the end of the line,
+we enter the pipe operator, " %&gt;% ", and hit enter.</p>
+<pre class="r"><code>df_final &lt;- mtcars %&gt;% </code></pre>
+<p>Next we replicate the commands from above,
+except we don’t need to specify any data in the options,
+it takes the output from the previous line and uses that!</p>
+<p>I’ll clarify a little bit.
+Let’s take a look:</p>
+<pre class="r"><code>df_final &lt;- mtcars %&gt;% 
+  filter(am == 1) %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarise(&quot;Average MPG&quot; = mean(mpg)) %&gt;% 
+  arrange(desc(&quot;Average MPG&quot;))</code></pre>
+<p>Think of the " %&gt;% " operator as saying <strong>“And then”</strong>.</p>
+<p>So, we take mtcars <strong>and then</strong> we:</p>
+<ol style="list-style-type: decimal">
+<li>filter out obs that do not meet the critereia “am == 1” <strong>and then</strong></li>
+<li>group the dataset into groups based on “cyl” <strong>and then</strong></li>
+<li>calculate the “Average MPG” of each group. <strong>and then</strong></li>
+<li>rename the variable “cyl” to “No. of Cylinders” <strong>and then</strong></li>
+<li>sort the data by “Average MPG”</li>
+</ol>
+<pre class="r"><code>df_final 
+
+  `No. of Cylinders` `Average MPG`
+               &lt;dbl&gt;         &lt;dbl&gt;
+1                  4          28.1
+2                  6          20.6
+3                  8          15.4</code></pre>
+<p>Hopefully, this gives some quick intuition of the pipe! Give it a try, you won’t go back!</p>
